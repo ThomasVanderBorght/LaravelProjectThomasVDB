@@ -19,19 +19,19 @@
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', Auth::user()->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
         <div>
             <x-input-label for="username" :value="__('Username')" />
-            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" :value="old('username', $user->username)" required />
+            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" :value="old('username', Auth::user()->username)" required />
             <x-input-error class="mt-2" :messages="$errors->get('username')" />
         </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', Auth::user()->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
@@ -55,21 +55,21 @@
      
          <div>
             <x-input-label for="date_of_birth" :value="__('Date of Birth')" />
-            <x-text-input id="date_of_birth" name="date_of_birth" type="date" class="mt-1 block w-full" :value="old('date_of_birth', $user->date_of_birth)" />
+            <x-text-input id="date_of_birth" name="date_of_birth" type="date" class="mt-1 block w-full" :value="old('date_of_birth', Auth::user()->date_of_birth)" />
             <x-input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
         </div>
 
         
         <div>
             <x-input-label for="about_me" :value="__('About Me')" />
-            <textarea id="about_me" name="about_me" class="mt-1 block w-full">{{ old('about_me', $user->about_me) }}</textarea>
+            <textarea id="about_me" name="about_me" class="mt-1 block w-full" value="{{ old('about_me', Auth::user()->about_me) }}"></textarea>
             <x-input-error class="mt-2" :messages="$errors->get('about_me')" />
         </div>
 
        
         <div>
-            <x-input-label for="profile_picture" :value="__('Profile Picture')" />
-            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" class="mt-1 block w-full" />
+        <label for="profile_picture">Profile Picture:</label>
+        <input type="file" id="profile_picture" name="profile_picture" class="border p-2 w-full mb-3">
             <x-input-error class="mt-2" :messages="$errors->get('profile_picture')" />
         </div>
 

@@ -40,7 +40,7 @@ class AdminController extends Controller
     public function storeUser(Request $request)
     {
         $request->validate([
-           'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
@@ -49,8 +49,12 @@ class AdminController extends Controller
             'about_me' => 'nullable|string',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+          $profilePicturePath = null;
+        if ($request->hasFile('profile_picture') && $request->file('profile_picture')->isValid()) {
+        $profilePicturePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+         }
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
@@ -60,7 +64,9 @@ class AdminController extends Controller
             'about_me' => $request->about_me,
             'profile_picture' => $profilePicturePath,
         ]);
-
+        if (!$user) {
+            return redirect()->back()->withErrors('User creation failed.');
+        }
         return redirect()->route('admin.users.index')->with('success', 'New user created successfully!');
     }
 }

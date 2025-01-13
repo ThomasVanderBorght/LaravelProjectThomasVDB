@@ -26,6 +26,6 @@ class ProfileUpdateRequest extends FormRequest
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'privacy_mode' => 'boolean',
             Rule::unique(User::class)->ignore($this->user()->id),
-            ],
+        ];
     }
 }

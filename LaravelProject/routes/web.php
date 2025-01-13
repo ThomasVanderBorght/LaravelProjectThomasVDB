@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheeseController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\NewsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +27,17 @@ Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
     Route::post('users/remove-admin/{id}', [AdminController::class, 'removeAdmin'])->name('users.removeAdmin');
     Route::get('users/create-user', [AdminController::class, 'createUser'])->name('users.createUser');
     Route::post('users/store-user', [AdminController::class, 'storeUser'])->name('users.storeUser');
+});
+
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+Route::get('/news/{news}', [NewsController::class, 'show'])->name('news.show');
+
+Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
+    Route::get('admin/news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('admin/news/store-news', [NewsController::class, 'store'])->name('news.store');
+    Route::get('admin/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
+    Route::put('admin/news/{news}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('admin/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
 });
 
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
