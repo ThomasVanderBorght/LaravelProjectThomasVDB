@@ -21,28 +21,29 @@ class NewsController extends Controller
 
     public function create()
     {
-        return view('news.create');
+        return view('admin.news.create');
     }
 
     public function store(Request $request)
     {
+
         $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required',
             'news_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'published_at' => 'required|date',
+            'publicationDate' => 'required|date',
         ]);
 
         $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('news_images', 'public');
+        if ($request->hasFile('news_picture')) {
+            $imagePath = $request->file('news_picture')->store('news_picture', 'public');
         }
 
         News::create([
             'title' => $request->title,
-            'body' => $request->content,
+            'body' => $request->body,
             'news_picture' => $imagePath,
-            'published_at' => $request->published_at,
+            'publicationDate' => $request->publicationDate,
         ]);
 
         return redirect()->route('news.index')->with('success', 'News created successfully!');
@@ -59,7 +60,7 @@ class NewsController extends Controller
             'title' => 'required|string|max:255',
             'body' => 'required',
             'news_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'published_at' => 'required|date',
+            'publicationDate' => 'required|date',
         ]);
 
         if ($request->hasFile('news_picture')) {

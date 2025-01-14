@@ -24,44 +24,14 @@ class UserSeeder extends Seeder
             Storage::disk('public')->delete($file);
         }
 
-        $placeholderImage = 'profile_pictures/placeholder.png';
-
-        if (Storage::disk('public')->exists($placeholderImage)) {
-            Storage::disk('public')->delete($placeholderImage);
-        }
-
         $placeHolderImageAdmin = 'profile_pictures/placeholderAdmin.png';
         if (Storage::disk('public')->exists($placeHolderImageAdmin)) {
             Storage::disk('public')->delete($placeHolderImageAdmin);
         }
 
-        $imageUrl = "https://i.imgur.com/ywWuOKK.png";
-        $imageContent = file_get_contents($imageUrl);
-        Storage::disk('public')->put($placeholderImage, $imageContent);
-
         $imageUrlAdmin = "https://i.imgur.com/OA7dxAR.png";
         $imageContentAdmin = file_get_contents($imageUrlAdmin);
         Storage::disk('public')->put($placeHolderImageAdmin, $imageContentAdmin);
-
-
-        for ($i = 0; $i < 4; $i++) {
-
-            $placeholderImage = rand(0, 1) 
-            ? 'profile_pictures/placeholder.png'
-            : null;
-
-            User::create([
-                'name' => $faker->name(),
-                'username' => $faker->unique()->userName(),
-                'email' => $faker->unique()->safeEmail(),
-                'password' => bcrypt('password123'),
-                'type' => User::USER,
-                'date_of_birth' => $faker->dateTimeBetween('-60 years', '-13 years'),
-                'about_me' => $faker->paragraph(),
-                'profile_picture' => $placeholderImage,
-                'privacy_mode' => $faker->boolean(),
-            ]);
-        }
 
         User::create([
             'name' => 'admin',

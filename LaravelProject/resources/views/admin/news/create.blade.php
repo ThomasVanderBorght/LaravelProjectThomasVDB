@@ -4,7 +4,7 @@
     </x-slot>
 
     <div class="container mx-auto p-6">
-        <form action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- Title -->
@@ -16,23 +16,23 @@
 
             <!-- Content -->
             <div class="mb-4">
-                <label for="content" class="block font-medium">Content:</label>
-                <textarea id="content" name="content" required class="border p-2 w-full h-32"></textarea>
-                @error('content') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+                <label for="body" class="block font-medium">Content:</label>
+                <textarea id="body" name="body" required class="border p-2 w-full h-32"></textarea>
+                @error('body') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
             </div>
 
             <!-- Image -->
             <div class="mb-4">
-                <label for="image" class="block font-medium">Image:</label>
-                <input type="file" id="image" name="image" accept="image/*" class="border p-2 w-full">
-                @error('image') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+                <label for="news_picture" class="block font-medium">news picture:</label>
+                <input type="file" id="news_picture" name="news_picture" accept="image/*" class="border p-2 w-full">
+                @error('news_picture') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
             </div>
 
             <!-- Published Date -->
             <div class="mb-4">
-                <label for="published_at" class="block font-medium">Published Date:</label>
-                <input type="date" id="published_at" name="published_at" required class="border p-2 w-full">
-                @error('published_at') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+                <label for="publicationDate" class="block font-medium">Published Date:</label>
+                <input type="date" id="publicationDate" name="publicationDate" required class="border p-2 w-full">
+                @error('publicationDate') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
             </div>
 
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Create News</button>

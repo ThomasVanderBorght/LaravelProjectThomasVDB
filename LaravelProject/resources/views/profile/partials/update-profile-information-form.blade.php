@@ -13,25 +13,25 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', Auth::user()->name)" required autofocus autocomplete="name" />
+            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
         <div>
             <x-input-label for="username" :value="__('Username')" />
-            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" :value="old('username', Auth::user()->username)" required />
+            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" value="{{ old('username', $user->username) }}" required />
             <x-input-error class="mt-2" :messages="$errors->get('username')" />
         </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', Auth::user()->email)" required autocomplete="username" />
+            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" value="{{ old('email', $user->email) }}" required autocomplete="email" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
@@ -52,26 +52,31 @@
                 </div>
             @endif
         </div>
-     
-         <div>
+
+        <div>
             <x-input-label for="date_of_birth" :value="__('Date of Birth')" />
-            <x-text-input id="date_of_birth" name="date_of_birth" type="date" class="mt-1 block w-full" :value="old('date_of_birth', Auth::user()->date_of_birth)" />
+            <x-text-input id="date_of_birth" name="date_of_birth" type="date" class="mt-1 block w-full" value="{{ old('date_of_birth', $user->date_of_birth) }}" />
             <x-input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
         </div>
 
-        
         <div>
             <x-input-label for="about_me" :value="__('About Me')" />
-            <textarea id="about_me" name="about_me" class="mt-1 block w-full" value="{{ old('about_me', Auth::user()->about_me) }}"></textarea>
+            <textarea id="about_me" name="about_me" class="mt-1 block w-full">{{ old('about_me', $user->about_me) }}</textarea>
             <x-input-error class="mt-2" :messages="$errors->get('about_me')" />
         </div>
 
-       
         <div>
-        <label for="profile_picture">Profile Picture:</label>
-        <input type="file" id="profile_picture" name="profile_picture" class="border p-2 w-full mb-3">
+            <label for="profile_picture">Profile Picture:</label>
+            <input type="file" id="profile_picture" name="profile_picture" class="border p-2 w-full mb-3">
             <x-input-error class="mt-2" :messages="$errors->get('profile_picture')" />
         </div>
+
+        @if ($user->profile_picture)
+            <div class="mt-2">
+                <p>Current Profile Picture:</p>
+                <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" class="w-32 h-32 rounded-full">
+            </div>
+        @endif
 
         <div>
             <x-input-label for="privacy_mode" :value="__('Privacy Mode')" />
@@ -86,13 +91,9 @@
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600"
-                >{{ __('Saved.') }}</p>
+                <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)" class="text-sm text-gray-600">
+                    {{ __('Saved.') }}
+                </p>
             @endif
         </div>
     </form>

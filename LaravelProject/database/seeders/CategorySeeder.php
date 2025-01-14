@@ -16,6 +16,13 @@ class CategorySeeder extends Seeder
         $categorie = Category::create([
             'name' => 'zacht',
             'description' => 'alle zachte kazen',
+            'type' => Category::CHEESE,
+        ]);
+
+        $categorie = Category::create([
+            'name' => 'veelgestende vragen',
+            'description' => 'alle  vaak voorkomende vragen',
+            'type' => Category::FAQ,
         ]);
     }
 }
