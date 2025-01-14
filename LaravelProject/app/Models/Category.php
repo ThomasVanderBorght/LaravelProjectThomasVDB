@@ -7,8 +7,8 @@ use App\Models\Cheese;
 
 class Category extends Model
 {
-    public const USER = 'cheese';
-    public const ADMIN = 'faq';
+    public const CHEESE = 'cheese';
+    public const FAQ = 'faq';
     protected $fillable = [
         'name',
         'description',
@@ -17,6 +17,11 @@ class Category extends Model
 
     public function kazen()
     {
-        return $this->hasMany(Cheese::class, 'categorie_id'); // One category has many Kazen
+        return $this->hasMany(Cheese::class, 'categorie_id');
+    }
+
+    public function faqs()
+    {
+        return $this->hasMany(FAQ::class, 'categorie_id'); 
     }
 }

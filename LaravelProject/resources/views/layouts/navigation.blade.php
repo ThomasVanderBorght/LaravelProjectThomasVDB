@@ -24,8 +24,14 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('news.index')" :active="request()->routeIs('news.index')">
+                    <x-nav-link :href="route('news.index')" :active="request()->routeIs('newsUser')">
                         {{ __('news') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq')">
+                        {{ __('faq') }}
                     </x-nav-link>
                 </div>
 
@@ -43,7 +49,7 @@
                                 <!-- Dropdown Menu -->
                                 <div x-show="open" @click.away="open = false" class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50">
                                     <a href="{{ route('admin.users.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage Users</a>
-                                    <a href="{{ route('admin.news.create') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage News</a>
+                                    <a href="{{ route('admin.news.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage News</a>
                                 </div>
                             </div>
                         </div>

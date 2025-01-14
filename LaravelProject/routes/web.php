@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheeseController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\FaqController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,10 +30,11 @@ Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
     Route::post('users/store-user', [AdminController::class, 'storeUser'])->name('users.storeUser');
 });
 
-Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+Route::get('/newsUser', [NewsController::class, 'index'])->name('news.index');
 Route::get('/news/{news}', [NewsController::class, 'show'])->name('news.show');
 
 Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
+    Route::get('admin/news', [NewsController::class, 'AdminIndex'])->name('news.index');
     Route::get('admin/news/create', [NewsController::class, 'create'])->name('news.create');
     Route::post('admin/news/store-news', [NewsController::class, 'store'])->name('news.store');
     Route::get('admin/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
@@ -45,4 +47,5 @@ Route::get('/categories/{categorie}', [CategoryController::class, 'show'])->name
 
 Route::get('/kazen', [CheeseController::class, 'index'])->name('cheeses.index');
 
+Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
 require __DIR__.'/auth.php';

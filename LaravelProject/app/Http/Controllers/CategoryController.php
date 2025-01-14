@@ -23,4 +23,10 @@ class CategoryController extends Controller
         // Return a view and pass the category & kazen
         return view('categories.show', compact('categorie', 'kazen'));
     }
+
+    public function getByType($type)
+    {
+        $categories = Category::where('type', $type)->get();
+        return view('categories.index', compact('categories'));
+    }
 }

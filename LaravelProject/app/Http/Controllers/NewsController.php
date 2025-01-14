@@ -13,6 +13,12 @@ class NewsController extends Controller
         $news = News::all();
         return view('news.index', compact('news'));
     }
+    
+    public function AdminIndex()
+    {
+        $news = News::all();
+        return view('admin.news.index', compact('news'));
+    }
    
     public function show(News $news)
     {
@@ -51,7 +57,7 @@ class NewsController extends Controller
 
     public function edit(News $news)
     {
-        return view('news.edit', compact('news'));
+        return view('admin.news.edit', compact('news'));
     }
 
     public function update(Request $request, News $news)
@@ -72,7 +78,7 @@ class NewsController extends Controller
 
         $news->update($request->except('news_picture'));
 
-        return redirect()->route('news.index')->with('success', 'News updated successfully!');
+        return redirect()->route('admin.news.index')->with('success', 'News updated successfully!');
     }
 
     public function destroy(News $news)
@@ -82,6 +88,6 @@ class NewsController extends Controller
         }
         $news->delete();
 
-        return redirect()->route('news.index')->with('success', 'News deleted successfully!');
+        return redirect()->route('admin.news.index')->with('success', 'News deleted successfully!');
     }
 }
