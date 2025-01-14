@@ -42,6 +42,24 @@ Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
     Route::delete('admin/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
 });
 
+Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
+    Route::get('admin/categories', [CategoryController::class, 'adminIndex'])->name('categories.index');
+    Route::get('admin/categories/create', [CategoryController::class, 'create'])->name('categories.create');
+    Route::post('admin/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::get('admin/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('admin/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('admin/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+});
+
+Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
+    Route::get('admin/faqs', [FaqController::class, 'adminIndex'])->name('faqs.index');
+    Route::get('admin/faqs/create', [FaqController::class, 'create'])->name('faqs.create');
+    Route::post('admin/faqs', [FaqController::class, 'store'])->name('faqs.store');
+    Route::get('admin/faqs/{faq}/edit', [FaqController::class, 'edit'])->name('faqs.edit');
+    Route::put('admin/faqs/{faq}', [FaqController::class, 'update'])->name('faqs.update');
+    Route::delete('admin/faqs/{faq}', [FaqController::class, 'destroy'])->name('faqs.destroy');
+});
+
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/{categorie}', [CategoryController::class, 'show'])->name('categories.show');
 

@@ -9,6 +9,7 @@ class FAQ extends Model
     protected $fillable = [
         'vraagnaam',
         'vraagbody',
+        'categorie_id',
     ];
 
     public function categorie()

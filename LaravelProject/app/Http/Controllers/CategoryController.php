@@ -4,29 +4,60 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Http\Controller\CheeseController;
 
 class CategoryController extends Controller
 {
-
-    public function index()
+    public function adminIndex()
     {
         $categories = Category::all();
-        return view('categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
-    public function show(Category $categorie)
+    public function create()
     {
-        // Fetch all Kazen related to the category
-        $kazen = $categorie->kazen;
-
-        // Return a view and pass the category & kazen
-        return view('categories.show', compact('categorie', 'kazen'));
+        return view('admin.categories.create');
     }
 
-    public function getByType($type)
+    public function store(Request $request)
     {
-        $categories = Category::where('type', $type)->get();
-        return view('categories.index', compact('categories'));
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'type' => 'required|in:cheese,faq',
+        ]);
+
+        Category::create($request->all());
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully!');
+    }
+
+    public function edit(Category $category)
+    {
+        return view('admin.categories.edit', compact('category'));
+    }
+
+    public function update(Request $request, Category $category)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'type' => 'required|in:cheese,faq',
+        ]);
+
+        $category->update($request->all());
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully!');
+    }
+
+    public function destroy(Category $category)
+    {
+        // Check if category is empty
+        if ($category->kazen()->exists() || $category->faqs()->exists()) {
+            return redirect()->back()->withErrors('Cannot delete category with associated items.');
+        }
+
+        $category->delete();
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully!');
     }
 }

@@ -52,7 +52,7 @@ class NewsController extends Controller
             'publicationDate' => $request->publicationDate,
         ]);
 
-        return redirect()->route('news.index')->with('success', 'News created successfully!');
+        return redirect()->route('admin.news.index')->with('success', 'News created successfully!');
     }
 
     public function edit(News $news)

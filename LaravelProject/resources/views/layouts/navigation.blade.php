@@ -12,12 +12,6 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categorien')">
-                        {{ __('Categorieën') }}
-                    </x-nav-link>
-                </div>
-
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('cheeses.index')" :active="request()->routeIs('kazen')">
                         {{ __('Kazen') }}
                     </x-nav-link>
@@ -50,6 +44,8 @@
                                 <div x-show="open" @click.away="open = false" class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-50">
                                     <a href="{{ route('admin.users.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage Users</a>
                                     <a href="{{ route('admin.news.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage News</a>
+                                    <a href="{{ route('admin.categories.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage Categories</a>
+                                    <a href="{{ route('admin.faqs.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage FAQS</a>
                                 </div>
                             </div>
                         </div>
