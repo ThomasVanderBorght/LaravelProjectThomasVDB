@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             Storage::disk('public')->delete($placeHolderImageAdmin);
         }
 
-        $imageUrlAdmin = "https://i.imgur.com/OA7dxAR.png";
+        $imageUrlAdmin = "https://imgur.com/w3UEu8o.png";
         $imageContentAdmin = file_get_contents($imageUrlAdmin);
         Storage::disk('public')->put($placeHolderImageAdmin, $imageContentAdmin);
 

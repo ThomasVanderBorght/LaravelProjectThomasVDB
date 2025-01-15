@@ -7,6 +7,7 @@ use App\Http\Controllers\CheeseController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -60,10 +61,24 @@ Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
     Route::delete('admin/faqs/{faq}', [FaqController::class, 'destroy'])->name('faqs.destroy');
 });
 
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/admin/contacts', [ContactController::class, 'index'])->name('admin.contacts.index');
+});
+
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/{categorie}', [CategoryController::class, 'show'])->name('categories.show');
 
 Route::get('/kazen', [CheeseController::class, 'index'])->name('cheeses.index');
 
 Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+});
+
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/admin/contact', [ContactController::class, 'index'])->name('admin.contact.index');
+});
+
 require __DIR__.'/auth.php';

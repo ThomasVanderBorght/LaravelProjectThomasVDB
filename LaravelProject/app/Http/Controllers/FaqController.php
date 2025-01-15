@@ -13,14 +13,17 @@ class FaqController extends Controller
         // Fetch only FAQ categories
         $faqCategories = Category::where('type', 'faq')->get();
 
+        $selectedCategory = null;
+
         // If a category is selected, filter FAQs
         if ($request->has('category')) {
             $selectedCategory = Category::findOrFail($request->category);
-            $faqs = FAQ::where('categorie_id', $selectedCategory->id)->get();
+            $faqs = $selectedCategory ? $selectedCategory->faqs : collect();
         } else {
             $selectedCategory = null;
             $faqs = FAQ::all(); // Show all FAQs if no category is selected
         }
+        
 
         return view('faq.index', compact('faqs', 'faqCategories', 'selectedCategory'));
     }

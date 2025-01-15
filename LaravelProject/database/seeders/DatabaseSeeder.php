@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             CheeseSeeder::class,
             FAQSeeder::class,
             NewsSeeder::class,
+            ContactSeeder::class,
         ]);
     }
 }
