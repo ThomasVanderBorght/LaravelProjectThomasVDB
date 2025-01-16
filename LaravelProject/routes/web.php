@@ -8,9 +8,14 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
+
 
 Route::get('/', function () {
-    return view('welcome');
+    $controller = app(CheeseController::class);
+    $data = $controller->index(request());
+    return view('welcome', $data->getData());
 });
 
 Route::get('/dashboard', function () {
@@ -24,7 +29,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
-    Route::get('users', [AdminController::class, 'index'])->name('users.index');
+    Route::get('/admin/users', [AdminController::class, 'index'])->name('users.index');
     Route::post('users/make-admin/{id}', [AdminController::class, 'makeAdmin'])->name('users.makeAdmin');
     Route::post('users/remove-admin/{id}', [AdminController::class, 'removeAdmin'])->name('users.removeAdmin');
     Route::get('users/create-user', [AdminController::class, 'createUser'])->name('users.createUser');
@@ -33,6 +38,8 @@ Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
 
 Route::get('/newsUser', [NewsController::class, 'index'])->name('news.index');
 Route::get('/news/{news}', [NewsController::class, 'show'])->name('news.show');
+Route::post('/news/{news}/comments', [CommentController::class, 'store'])->name('comments.store');
+
 
 Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
     Route::get('admin/news', [NewsController::class, 'AdminIndex'])->name('news.index');
@@ -71,6 +78,9 @@ Route::get('/categories/{categorie}', [CategoryController::class, 'show'])->name
 Route::get('/kazen', [CheeseController::class, 'index'])->name('cheeses.index');
 
 Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
+
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');

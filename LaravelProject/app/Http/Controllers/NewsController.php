@@ -10,7 +10,7 @@ class NewsController extends Controller
 {  
     public function index()
     {
-        $news = News::all();
+        $news = News::with('comments')->latest()->get();
         return view('news.index', compact('news'));
     }
     

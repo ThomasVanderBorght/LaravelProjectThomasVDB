@@ -20,6 +20,7 @@ class CheeseSeeder extends Seeder
             'brand' => 'DutchCheese',
             'description' => 'Aged Dutch Gouda Cheese',
             'categorie_id' => 1,
+            'cheesePicture' => 'cheesePicture/brie.jpg'
         ]);
     }
 }

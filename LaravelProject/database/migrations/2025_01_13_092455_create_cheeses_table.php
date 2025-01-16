@@ -18,6 +18,7 @@ return new class extends Migration
                 $table->string('brand');
                 $table->text('description')->nullable();
                 $table->foreignId('categorie_id')->nullable()->constrained('categories')->onDelete('set null');
+                $table->string('cheesePicture')->nullable();
                 $table->timestamps();
     });
 }
