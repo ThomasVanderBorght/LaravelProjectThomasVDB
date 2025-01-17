@@ -11,7 +11,7 @@ class UserController extends Controller
     public function index(): View
     {
         return view('users.index', [
-            'users' => User::all(), // Empty users list initially
+            'users' => User::all(),
         ]);
     }
 
@@ -19,9 +19,8 @@ class UserController extends Controller
     {
         $query = $request->input('query');
 
-        // Fetch users based on search query, excluding private profiles
         $users = User::query()
-            ->where('privacy_mode', false) // Only public profiles
+            ->where('privacy_mode', false) 
             ->where(function ($q) use ($query) {
                 $q->where('username', 'LIKE', "%{$query}%")
                   ->orWhere('about_me', 'LIKE', "%{$query}%");

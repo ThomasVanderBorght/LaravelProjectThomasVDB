@@ -57,7 +57,7 @@ class User extends Authenticatable
     }
     public function getFormattedType()
     {
-        return ucfirst($this->type); // Capitalizes the first letter
+        return ucfirst($this->type); 
     }
 
     public function user()

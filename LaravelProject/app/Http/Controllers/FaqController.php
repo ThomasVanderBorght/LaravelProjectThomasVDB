@@ -10,18 +10,16 @@ class FaqController extends Controller
 {
     public function index(Request $request)
     {
-        // Fetch only FAQ categories
         $faqCategories = Category::where('type', 'faq')->get();
 
         $selectedCategory = null;
 
-        // If a category is selected, filter FAQs
         if ($request->has('category')) {
             $selectedCategory = Category::findOrFail($request->category);
             $faqs = $selectedCategory ? $selectedCategory->faqs : collect();
         } else {
             $selectedCategory = null;
-            $faqs = FAQ::all(); // Show all FAQs if no category is selected
+            $faqs = FAQ::all(); 
         }
         
 
@@ -36,7 +34,7 @@ class FaqController extends Controller
 
     public function create()
     {
-        $categories = Category::where('type', 'faq')->get(); // Get only FAQ categories
+        $categories = Category::where('type', 'faq')->get();
         return view('admin.faqs.create', compact('categories'));
     }
 
@@ -53,7 +51,7 @@ class FaqController extends Controller
         $faq = FAQ::create([
             'vraagnaam' => $request->vraagnaam,
             'vraagbody' => $request->vraagbody,
-            'categorie_id' => $category->id, // Ensure the correct ID is stored
+            'categorie_id' => $category->id, 
         ]);
 
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ created successfully!');

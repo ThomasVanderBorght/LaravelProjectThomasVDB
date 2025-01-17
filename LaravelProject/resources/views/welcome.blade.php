@@ -39,7 +39,6 @@
     <section class="container mx-auto px-6 py-16">
     <h3 class="text-3xl font-semibold text-gray-800 text-center mb-12">Our Cheeses</h3>
 
-    <!-- Category Filter -->
     <div class="mb-8 flex justify-center">
         <a href="{{ route('cheeses.index') }}" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">
             All Cheeses
@@ -52,7 +51,6 @@
         @endforeach
     </div>
 
-    <!-- Cheese Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @forelse ($kazen as $cheese)
             <div class="bg-white shadow-lg rounded-lg overflow-hidden">

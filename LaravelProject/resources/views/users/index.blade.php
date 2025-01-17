@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
         @auth
-            <!-- Only show this section for logged-in users -->
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Search Users') }}
             </h2>
@@ -11,7 +10,6 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white p-6 rounded shadow">
-                <!-- Search Form -->
                 <form action="{{ route('users.search') }}" method="GET" class="mb-6">
                     <div class="flex items-center space-x-2">
                         <input
@@ -27,7 +25,6 @@
                     </div>
                 </form>
 
-                <!-- Users List -->
                 @if($users && count($users) > 0)
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($users as $user)

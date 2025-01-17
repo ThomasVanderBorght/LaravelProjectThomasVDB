@@ -17,7 +17,7 @@ class AdminController extends Controller
     public function makeAdmin($id)
     {
         $user = User::findOrFail($id);
-        $user->type = 'admin'; // Update user type
+        $user->type = 'admin';
         $user->save();
 
         return redirect()->route('admin.users.index')->with('success', 'User promoted to Admin!');
@@ -26,7 +26,7 @@ class AdminController extends Controller
     public function removeAdmin($id)
     {
         $user = User::findOrFail($id);
-        $user->type = 'user'; // Downgrade user to normal
+        $user->type = 'user'; 
         $user->save();
 
         return redirect()->route('admin.users.index')->with('success', 'Admin rights removed!');
@@ -34,7 +34,7 @@ class AdminController extends Controller
 
     public function createUser()
     {
-        return view('admin.users.create'); // Show user creation form
+        return view('admin.users.create'); 
     }
 
     public function storeUser(Request $request)

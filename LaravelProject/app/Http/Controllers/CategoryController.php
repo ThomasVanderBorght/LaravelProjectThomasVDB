@@ -51,7 +51,6 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        // Check if category is empty
         if ($category->kazen()->exists() || $category->faqs()->exists()) {
             return redirect()->back()->withErrors('Cannot delete category with associated items.');
         }

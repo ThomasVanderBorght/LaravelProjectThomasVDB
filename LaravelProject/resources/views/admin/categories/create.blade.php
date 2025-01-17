@@ -6,8 +6,6 @@
     <div class="container mx-auto p-6">
         <form action="{{ route('contact.store') }}" method="POST">
             @csrf
-
-            <!-- Category Selection -->
             <div class="mb-4">
                 <label for="reason" class="block font-medium">Select a Category:</label>
                 <select id="reason" name="reason" required class="border p-2 w-full" onchange="toggleUserReportField(this.value)">
@@ -19,14 +17,12 @@
                 @error('reason') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
             </div>
 
-            <!-- Reported User (Only visible if User Report is selected) -->
             <div class="mb-4 hidden" id="userReportField">
                 <label for="reported_user_id" class="block font-medium">Reported User (Enter Username):</label>
                 <input type="text" id="reported_user" name="reported_user" class="border p-2 w-full">
                 @error('reported_user') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
             </div>
 
-            <!-- Message -->
             <div class="mb-4">
                 <label for="message" class="block font-medium">Your Message:</label>
                 <textarea id="message" name="message" required class="border p-2 w-full h-32"></textarea>

@@ -30,27 +30,23 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
-        $path = $user->profile_picture; // Keep current profile picture
-    
-        // Handle Profile Picture Upload
+        $path = $user->profile_picture;
+
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');
     
             if ($file->isValid()) {
-                // Delete old profile picture if it's not the placeholder
                 if ($user->profile_picture && Storage::disk('public')->exists($user->profile_picture) && $user->profile_picture !== 'profile_pictures/placeholder.png') {
                     Storage::disk('public')->delete($user->profile_picture);
                 }
-    
-                // Save new profile picture
+
                 $filename = uniqid() . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs('profile_pictures', $filename, 'public'); 
             } else {
                 return Redirect::route('profile.edit')->withErrors(['profile_picture' => 'The uploaded file is not valid.']);
             }
         }
-    
-        // Update User Fields
+
         $user->fill([
             'name' => $request->name,
             'username' => $request->username,
@@ -58,10 +54,9 @@ class ProfileController extends Controller
             'date_of_birth' => $request->date_of_birth,
             'about_me' => $request->about_me,
             'privacy_mode' => $request->privacy_mode,
-            'profile_picture' => $path, // Update profile picture path
+            'profile_picture' => $path,
         ]);
     
-        // Reset email verification if the email was changed
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
