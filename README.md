@@ -20,21 +20,30 @@ To install follow the following steps
  cd your-repository
 
 2. **Install the depencencies**
+```bash
 composer install
-npm install
+npm installd
+```
+
 
 3. **Add the database connection**
 add your .env file
 
 4. **Generate application key**
+```bash
 php artisan key:generate
+```
 
-5. **Migrate and seed**
+6. **Migrate and seed**
+```bash
 php artisan migrate
 php artisan db:seed
-
-6. **Start the frontend**
+```
+8. **Start the frontend**
+```bash
 npm run dev
-
-7. **Start the backend server**
+```
+10. **Start the backend server**
+```bash
 php artisan server
+```
