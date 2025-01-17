@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('contact.create')" :active="request()->routeIs('contact')">
+                    <x-nav-link :href="route('contact.index')" :active="request()->routeIs('contact')">
                         {{ __('contact') }}
                     </x-nav-link>
                 </div>
@@ -58,7 +58,7 @@
                                     <a href="{{ route('admin.news.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage News</a>
                                     <a href="{{ route('admin.categories.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage Categories</a>
                                     <a href="{{ route('admin.faqs.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage FAQS</a>
-                                    <a href="{{ route('admin.contact.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage Contacts</a>
+                                    <a href="{{ route('admin.contacts.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Manage Contacts</a>
                                 </div>
                             </div>
                         </div>

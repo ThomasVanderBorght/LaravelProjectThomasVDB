@@ -70,6 +70,11 @@ class User extends Authenticatable
         return $this->hasMany(Contact::class, 'reported_user_id');
     }
 
+    public function ResponsePerson()
+    {
+        return $this->hasMany(Contact::class, 'answered_by');
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class, 'user_id');

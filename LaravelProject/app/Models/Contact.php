@@ -12,7 +12,10 @@ class Contact extends Model
         'reason',
         'reported_user_id',
         'message',
-
+        'email', 
+        'is_answered',
+        'response', 
+        'answered_by'
          
     ];
 
@@ -24,5 +27,10 @@ class Contact extends Model
     public function reportedUser()
     {
         return $this->belongsTo(User::class, 'reported_user_id');
+    }
+
+    public function ResponsePerson()
+    {
+        return $this->belongsTo(User::class, 'answered_by');
     }
 }

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->foreignId('reported_user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->text('reason');
             $table->text('message');
+            $table->boolean('is_answered')->default(false);
+            $table->text('response')->nullable();
+            $table->foreignId('answered_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
         });
     }

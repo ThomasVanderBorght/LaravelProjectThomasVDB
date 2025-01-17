@@ -83,12 +83,16 @@ Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
     Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/my-contact', [ContactController::class, 'Userindex'])->name('contact.index');
     Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 });
 
-Route::middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('/admin/contact', [ContactController::class, 'index'])->name('admin.contact.index');
+Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
+    Route::get('admin/contacts', [ContactController::class, 'index'])->name('contacts.index');
+    Route::post('admin/contacts/{id}/respond', [ContactController::class, 'respond'])->name('contacts.respond');
+    Route::delete('admin/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.delete');
+
 });
 
 require __DIR__.'/auth.php';
