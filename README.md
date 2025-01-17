@@ -22,7 +22,7 @@ To install follow the following steps
 2. **Install the depencencies**
 ```bash
 composer install
-npm installd
+npm install
 ```
 
 
